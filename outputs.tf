@@ -17,6 +17,7 @@
 # A user or control-plane endpoint wins; otherwise a stable, valid endpoint
 # derived from the object name (.invalid never resolves, RFC 2606).
 output "control_plane_endpoint" {
+  description = "The API endpoint: noop-<TerraformCluster name>.invalid:6443, or the control_plane_endpoint input passed through. It never resolves."
   value = var.control_plane_endpoint != null ? var.control_plane_endpoint : {
     host = "noop-${var.captf_object.name}.invalid"
     port = 6443
@@ -24,13 +25,16 @@ output "control_plane_endpoint" {
 }
 
 output "failure_domains" {
-  value = [{ name = "fd1", control_plane = true }]
+  description = "One failure domain, fd1, eligible for control-plane machines."
+  value       = [{ name = "fd1", control_plane = true }]
 }
 
 output "exports" {
-  value = { backend_id = "noop-backend-${terraform_data.load_balancer.id}" }
+  description = "Handed to machines and pools as captf_cluster_outputs: backend_id, the id of the stand-in load balancer."
+  value       = { backend_id = "noop-backend-${terraform_data.load_balancer.id}" }
 }
 
 output "health" {
-  value = { state = "running", healthy = true, message = null, reasons = [] }
+  description = "Always running and healthy."
+  value       = { state = "running", healthy = true, message = null, reasons = [] }
 }

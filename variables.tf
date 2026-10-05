@@ -17,10 +17,12 @@
 # records them in terraform_data so a plan shows what it was given.
 
 variable "captf_contract" {
-  type = string
+  description = "Contract version the controller generated the root for; always v1alpha1."
+  type        = string
 }
 
 variable "captf_cluster" {
+  description = "The owning CAPI Cluster: name and namespace."
   type = object({
     name      = string
     namespace = string
@@ -28,6 +30,7 @@ variable "captf_cluster" {
 }
 
 variable "captf_object" {
+  description = "The TerraformCluster being reconciled: kind, name and namespace."
   type = object({
     kind      = string
     name      = string
@@ -39,10 +42,12 @@ variable "captf_object" {
 # contract CHANGELOG). The skeleton's defaulted declaration is optional.
 
 variable "captf_tags" {
-  type = map(string)
+  description = "Tags the controller always sets (captf.io/cluster, captf.io/namespace, captf.io/kind, captf.io/name, captf.io/managed-by, captf.io/template); held in terraform_data like every other input."
+  type        = map(string)
 }
 
 variable "control_plane_endpoint" {
+  description = "An endpoint the module does not own (set by the user or a control-plane provider). Non-null is passed through as the control_plane_endpoint output."
   type = object({
     host = string
     port = number
@@ -51,15 +56,18 @@ variable "control_plane_endpoint" {
 }
 
 variable "kubernetes_version" {
-  type    = string
-  default = null
+  description = "Cluster.spec.topology.version, null without ClusterClass. Held, otherwise unused."
+  type        = string
+  default     = null
 }
 
 variable "control_plane_initialized" {
-  type = bool
+  description = "Cluster.status.initialization.controlPlaneInitialized, latched. Held, otherwise unused."
+  type        = bool
 }
 
 variable "cluster_network" {
+  description = "Cluster.spec.clusterNetwork. Held, otherwise unused."
   type = object({
     pods            = optional(list(string), [])
     services        = optional(list(string), [])
