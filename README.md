@@ -35,9 +35,9 @@ state and outputs are real and no cloud account is needed. Use it to try
 CAPTF without a cloud account, to exercise a management cluster, as the
 provider's e2e target, or as a starting point for a real module.
 
-The module image `ghcr.io/captf-io/noop-cluster` is built and published from
-[noop-modules](https://github.com/captf-io/noop-modules); this repository
-holds the code and its checks.
+The module image `ghcr.io/captf-io/module-images/noop-cluster` is built and published by
+[module-images](https://github.com/captf-io/module-images) from this repository's releases. This
+repository holds the code and its checks.
 
 ## What it returns
 
@@ -49,7 +49,7 @@ The module exercises the provider, not Kubernetes.
 
 ## Using it
 
-CAPTF runs this module from the module image `ghcr.io/captf-io/noop-cluster`:
+CAPTF runs this module from the module image `ghcr.io/captf-io/module-images/noop-cluster`:
 set the image on a `TerraformCluster`'s `spec.source.image`, and the controller
 renders every input. The module is also published to the Terraform Registry as
 `captf-io/cluster/noop` and can be called directly:
